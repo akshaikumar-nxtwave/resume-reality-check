@@ -135,8 +135,26 @@ export interface RewriteSuggestion {
   reason: string;
 }
 
+export interface Skills {
+  languages?: string[];
+  frameworks?: string[];
+  tools?: string[];
+  databases?: string[];
+  skill_score?: Record<string, number>;
+  skill_project_mapping?: Record<string, string[]>;
+}
+
+export interface HeaderSectionLinks {
+  github?: string;
+  linkedin?: string;
+  portfolio?: string;
+  other_links?: string[];
+}
+
 export interface ApiResult {
   candidate?: Candidate;
+  header_section_links?: HeaderSectionLinks;
+  skills?: Skills;
   overall_score: number;
   grade: 'Excellent' | 'Good' | 'Fair' | 'Poor';
   summary?: string;
