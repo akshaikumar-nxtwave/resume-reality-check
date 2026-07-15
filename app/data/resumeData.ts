@@ -1,3 +1,164 @@
+// Type for the full analysis result structure (matches API response)
+export type CandidateAnalysisData = typeof candidateData;
+
+export const candidateData = {
+  parsing_meta: {
+    parsing_success_percentage: 94,
+    detected_format: "DOCX",
+    total_pages: 2,
+    sections_detected: ["Header", "Profile", "Employment", "Tech Stack", "Projects", "Hobbies"],
+    sections_normalized: {
+      Employment: "Experience",
+      "Tech Stack": "Skills",
+    } as Record<string, string>,
+    unrecognized_sections: ["Personal Philosophy", "References Available Upon Request"] as string[],
+  },
+  candidate: {
+    name: "Jordan Smith",
+    email: "j.smith.dev@example.com",
+    phone: "+1-202-555-0198",
+    location: "Remote / Seattle, WA",
+    linkedin: "linkedin.com/in/jsmith-engineering",
+    portfolio: "jsmith.io",
+    current_title: "Senior Frontend Developer",
+    years_of_experience: 6,
+    career_level: "Senior",
+  },
+  header_section_links: {
+    github: "github.com/jsmith-codes",
+    linkedin: "linkedin.com/in/jsmith-engineering",
+    portfolio: "jsmith.io",
+    other_links: ["behance.net/jsmith-ui"] as string[],
+  },
+  overall_score: 78,
+  grade: "B",
+  summary:
+    "Senior Developer with a focus on high-performance React applications and scalable CSS architectures. Expert in mentoring teams and streamlining CI/CD pipelines.",
+  scoring_notes:
+    "Great technical depth, but the resume contains several parsing red flags that might hinder automated screening.",
+  categories: {
+    skills: { score: 95, weight: 20, reasoning: "Strong alignment with modern frontend requirements." },
+    projects: { score: 60, weight: 30, reasoning: "Projects lack clear documentation links and impact metrics." },
+    experience: { score: 85, weight: 20, reasoning: "Consistent career progression in reputable firms." },
+    education: { score: 100, weight: 5, reasoning: "B.S. in Computer Science confirmed." },
+    ats: { score: 50, weight: 15, reasoning: "Unrecognized sections and non-standard headers detected." },
+    links: { score: 90, weight: 10, reasoning: "Most links functional, but GitHub profile is private." },
+  } as Record<string, { score: number; weight: number; reasoning: string }>,
+  skills: {
+    languages: ["JavaScript", "TypeScript", "HTML5", "Sass"],
+    frameworks: ["React", "Vue.js", "Tailwind CSS", "Next.js"],
+    tools: ["Vite", "Webpack", "Docker", "Figma"],
+    databases: ["Firebase", "PostgreSQL"],
+    skill_score: { "UI/UX": 90, Architecture: 85 } as Record<string, number>,
+    skill_project_mapping: {
+      Tailwind: ["Dashboard Refresh"],
+      "Next.js": ["SaaS Marketing Site"],
+    } as Record<string, string[]>,
+  },
+  projects_analysis: {
+    score: 60,
+    total_projects: 2,
+    has_projects_section: true,
+    projects: [
+      {
+        name: "CryptoTracker Pro",
+        description: "A real-time dashboard for monitoring cryptocurrency price fluctuations.",
+        tech_stack: ["React", "D3.js", "WebSockets"],
+        github_url: "",
+        live_url: "crypto-pro-demo.io",
+        has_github: false,
+        has_live_deployment: true,
+        impact_mentioned: false,
+        impact_description: "",
+        is_tutorial_clone: true,
+        completeness_score: 45,
+        missing_elements: ["GitHub Repository Link", "Quantified User Metrics", "Role Description"],
+        positive_signals: ["Live Demo Link", "Complex Data Visualization"],
+        red_flags: ["Tutorial Clone Detected", "Missing Source Code", "Vague Tech Implementation"],
+      },
+    ],
+    project_gaps: ["No backend-heavy projects", "Lack of testing suites mentioned"],
+    notes: "Projects feel a bit generic; needs more unique, high-impact contributions.",
+  },
+  measurable_impact: {
+    score: 40,
+    quantified_bullets: ["Reduced build time by 15%"],
+    unquantified_bullets: ["Improved UI consistency across the app", "Helped with onboarding"],
+    quantification_rate: 20,
+    notes: "The experience section is very task-oriented rather than result-oriented.",
+  },
+  keywords: {
+    tracked_keywords: ["Agile", "React", "TDD"],
+    keyword_scores: { Frontend: 10, Leadership: 6 } as Record<string, number>,
+    strong_keywords: ["React", "TypeScript", "Webpack"],
+    weak_or_vague_keywords: ["Passionate", "Detail-oriented", "Team player"],
+    missing_industry_keywords: ["Cypress", "Unit Testing", "AWS Lambda"],
+    keyword_density_score: 70,
+    keyword_notes: "Heavy on skills, light on methodology keywords.",
+  },
+  formatting: {
+    score: 55,
+    is_single_column: false,
+    uses_tables: true,
+    uses_images_or_graphics: false,
+    uses_headers_footers: true,
+    font_consistency: "Inconsistent (Arial and Calibri)",
+    bullet_style_consistent: false,
+    section_spacing_adequate: false,
+    contact_at_top: true,
+    notes: "Tables and headers/footers are high-risk for ATS parsing errors.",
+  },
+  layout_insights: {
+    score: 75,
+    section_order: ["Profile", "Hobbies", "Employment", "Skills", "Projects"],
+    recommended_section_order: ["Profile", "Skills", "Employment", "Projects", "Education"],
+    section_order_issues: ["Hobbies section appears too high in the hierarchy."],
+    missing_recommended_sections: ["Certifications", "Education"],
+    unnecessary_sections: ["Hobbies", "Personal Philosophy"],
+    notes: "Move hobbies to the bottom or remove entirely.",
+  },
+  jd_evaluation: undefined,
+  critical_fixes: [
+    {
+      severity: "critical",
+      section: "Layout",
+      issue: "Use of tables for alignment.",
+      fix: "Remove all tables; use standard tabs and margins for layout.",
+    },
+  ] as Array<{ severity: string; section: string; issue: string; fix: string }>,
+  keyword_gaps: {
+    missing_technical_skills: ["Jest", "Testing Library"],
+    missing_soft_skills: ["Project Management", "Stakeholder Communication"],
+    missing_certifications: ["Meta Front-End Developer Certificate"],
+    overused_buzzwords: ["Self-starter", "Guru"],
+    notes: "The resume lacks testing-related keywords.",
+  },
+  ats_warnings: [
+    {
+      type: "error",
+      check: "Table Detection",
+      detail: "Data inside tables may not be correctly associated with sections.",
+    },
+  ] as Array<{ type: string; check: string; detail: string }>,
+  improvements: [
+    {
+      priority: "medium",
+      section: "Skills",
+      issue: "Skill density is too high.",
+      suggestion: "Group skills by category (e.g., Languages, Frameworks) for better readability.",
+    },
+  ] as Array<{ priority: string; section: string; issue: string; suggestion: string }>,
+  rewrite_suggestions: [
+    {
+      original: "Worked on the main company website using React.",
+      improved:
+        "Spearheaded the migration of the flagship enterprise dashboard to React, improving lighthouse performance scores by 35%.",
+      reason: "Uses a strong action verb and provides a specific metric.",
+    },
+  ] as Array<{ original: string; improved: string; reason: string }>,
+};
+
+
 export interface ResumeData {
   name: string;
   phone: string;

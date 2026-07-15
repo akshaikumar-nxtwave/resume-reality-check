@@ -32,6 +32,8 @@ export interface CategoryValue {
 export type CategoriesMap = Record<string, CategoryValue>;
 
 export interface ApiKeywords {
+  tracked_keywords?: string[];
+  keyword_scores?: Record<string, number>;
   strong_keywords?: string[];
   weak_or_vague_keywords?: string[];
   missing_industry_keywords?: string[];
@@ -108,6 +110,23 @@ export interface AtsWarning {
   detail: string;
 }
 
+export interface JdGapAnalysisItem {
+  missing_skill: string;
+  foundation_status: 'none' | 'adjacent';
+  related_skills_or_projects?: string[];
+  actionable_suggestion: string;
+}
+
+export interface JdEvaluation {
+  score?: number;
+  summary?: string;
+  matching_skills?: string[];
+  matching_projects?: string[];
+  experience_match?: string;
+  notes?: string;
+  gap_analysis?: JdGapAnalysisItem[];
+}
+
 export interface CriticalFix {
   severity: 'critical' | 'major' | 'minor';
   section: string;
@@ -126,6 +145,7 @@ export interface KeywordGaps {
 export interface Improvement {
   priority: 'high' | 'medium' | 'low';
   section?: string;
+  issue?: string;
   suggestion: string;
 }
 
@@ -135,8 +155,26 @@ export interface RewriteSuggestion {
   reason: string;
 }
 
+export interface Skills {
+  languages?: string[];
+  frameworks?: string[];
+  tools?: string[];
+  databases?: string[];
+  skill_score?: Record<string, number>;
+  skill_project_mapping?: Record<string, string[]>;
+}
+
+export interface HeaderSectionLinks {
+  github?: string;
+  linkedin?: string;
+  portfolio?: string;
+  other_links?: string[];
+}
+
 export interface ApiResult {
   candidate?: Candidate;
+  header_section_links?: HeaderSectionLinks;
+  skills?: Skills;
   overall_score: number;
   grade: 'Excellent' | 'Good' | 'Fair' | 'Poor';
   summary?: string;
@@ -153,4 +191,5 @@ export interface ApiResult {
   improvements?: Improvement[];
   ats_warnings?: AtsWarning[];
   rewrite_suggestions?: RewriteSuggestion[];
+  jd_evaluation?: JdEvaluation;
 }
